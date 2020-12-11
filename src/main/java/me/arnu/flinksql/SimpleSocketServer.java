@@ -38,15 +38,15 @@ public class SimpleSocketServer {
                     logger.info("有请求接入，" + socket.getRemoteSocketAddress());
                     init(socket);
 
-                    sendFile();
-                    System.in.read();
+//                    sendFile();
+//                    System.in.read();
 
-//                    Scanner scanner = new Scanner(System.in);
-//                    while (true) {
-//                        String msg = scanner.nextLine();
-//                        SendMsg(msg);
-//                        socket.sendUrgentData(0);
-//                    }
+                    Scanner scanner = new Scanner(System.in);
+                    while (true) {
+                        String msg = scanner.nextLine();
+                        SendMsg(msg);
+                        socket.sendUrgentData(0);
+                    }
 
 
 //                    InputStream inputStream = socket.getInputStream();
@@ -61,7 +61,7 @@ public class SimpleSocketServer {
 //                    socket.shutdownInput();
 //                    bufferedReader.close();
 //                    inputStream.close();
-                    socket.close();
+//                    socket.close();
                 } catch (Exception exception) {
                     exception.printStackTrace();
                 }
