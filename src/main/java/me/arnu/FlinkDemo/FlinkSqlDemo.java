@@ -1,4 +1,4 @@
-package me.arnu.flinksql;
+package me.arnu.FlinkDemo;
 
 import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.api.java.DataSet;
