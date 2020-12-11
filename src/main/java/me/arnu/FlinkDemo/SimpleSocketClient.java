@@ -1,5 +1,6 @@
 package me.arnu.FlinkDemo;
 
+import me.arnu.utils.ArnuSign;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,10 +22,7 @@ public class SimpleSocketClient {
         try {
             host = "localhost";
             port = 50190;
-            System.out.println("#     __\n" +
-                    "#    /  |  ____ ___  _  \n" +
-                    "#   / / | / __//   // / /\n" +
-                    "#  /_/`_|/_/  / /_//___/\n" +
+            System.out.println(ArnuSign.GetArnuSign() +
                     "----------------客户端执行，開始发送消息----------------");
             logger.info("host:" + host + ", port:" + port);
             //发送到8888端口

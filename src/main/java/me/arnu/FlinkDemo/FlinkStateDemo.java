@@ -1,5 +1,6 @@
 package me.arnu.FlinkDemo;
 
+import me.arnu.utils.ArnuSign;
 import org.apache.flink.api.common.functions.RichFlatMapFunction;
 import org.apache.flink.api.common.state.ListState;
 import org.apache.flink.api.common.state.ListStateDescriptor;
@@ -20,6 +21,7 @@ import java.util.List;
 
 public class FlinkStateDemo {
     public static void main(String[] args) throws Exception {
+        ArnuSign.printSign();
         final StreamExecutionEnvironment env=StreamExecutionEnvironment.getExecutionEnvironment();
         env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
         env.setParallelism(1);

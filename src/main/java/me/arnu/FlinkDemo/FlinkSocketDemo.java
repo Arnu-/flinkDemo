@@ -1,5 +1,6 @@
 package me.arnu.FlinkDemo;
 
+import me.arnu.utils.ArnuSign;
 import org.apache.flink.api.java.utils.ParameterTool;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
@@ -10,6 +11,7 @@ public class FlinkSocketDemo {
     private final static Logger logger = LoggerFactory.getLogger("FlinkSocketDemo");
 
     public static void main(String[] args) throws Exception {
+        ArnuSign.printSign();
         //定义socket的端口号
         int port;
         try {

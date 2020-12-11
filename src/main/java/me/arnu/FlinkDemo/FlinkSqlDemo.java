@@ -1,5 +1,6 @@
 package me.arnu.FlinkDemo;
 
+import me.arnu.utils.ArnuSign;
 import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.api.java.DataSet;
 import org.apache.flink.api.java.ExecutionEnvironment;
@@ -8,6 +9,7 @@ import org.apache.flink.table.api.java.BatchTableEnvironment;
 
 public class FlinkSqlDemo {
     public static void main(String[] args) throws Exception {
+        ArnuSign.printSign();
         //1\. 获取上下文环境 table的环境
         ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();
         BatchTableEnvironment tableEnv = BatchTableEnvironment.getTableEnvironment(env);

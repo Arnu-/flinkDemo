@@ -1,5 +1,6 @@
 package me.arnu.FlinkDemo;
 
+import me.arnu.utils.ArnuSign;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,10 +27,7 @@ public class SimpleSocketServer {
         fileName = "D:\\code\\1\\flinksql\\src\\main\\resources\\flink.txt";
         port = 50190;
         ServerSocket serverSocket = new ServerSocket(port);
-        System.out.println("#     __\n" +
-                "#    /  |  ____ ___  _  \n" +
-                "#   / / | / __//   // / /\n" +
-                "#  /_/`_|/_/  / /_//___/\n" +
+        System.out.println(ArnuSign.GetArnuSign() +
                 "----------------服务端执行，開始监听请求----------------");
         try {
             while (true) {
