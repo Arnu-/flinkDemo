@@ -1,4 +1,4 @@
-package me.arnu.FlinkDemo;
+package me.arnu.Socket;
 
 import me.arnu.utils.ArnuSign;
 import org.slf4j.Logger;
@@ -24,7 +24,8 @@ public class SimpleSocketServer {
         showStep = 5;
         batch = 1;
         sleep = 100;
-        fileName = "D:\\code\\1\\flinksql\\src\\main\\resources\\flink.txt";
+//        fileName = "D:\\code\\1\\flinksql\\src\\main\\resources\\flink.txt";
+        fileName = "D:\\tmp\\20201211\\jdxm_cctv5.20201211.log";
         port = 50190;
         ServerSocket serverSocket = new ServerSocket(port);
         System.out.println(ArnuSign.GetArnuSign() +
@@ -36,7 +37,7 @@ public class SimpleSocketServer {
                     logger.info("有请求接入，" + socket.getRemoteSocketAddress());
                     init(socket);
 
-//                    sendFile();
+//                    sendFile(socket);
 //                    System.in.read();
 
                     Scanner scanner = new Scanner(System.in);
@@ -44,6 +45,7 @@ public class SimpleSocketServer {
                         String msg = scanner.nextLine();
                         SendMsg(msg);
                         socket.sendUrgentData(0);
+                        Thread.sleep(300);
                     }
 
 
@@ -84,36 +86,42 @@ public class SimpleSocketServer {
         }
     }
 
-    private static void sendFile() throws InterruptedException {
+    private static void sendFile(Socket socket) throws InterruptedException, IOException {
         Scanner inputStream = null;
         try {
             inputStream = new Scanner(new FileInputStream(fileName));
+
+            String line = null;
+            long count = 0;
+            long to = 0;
+            long oneBatch = 0;
+            while (inputStream.hasNextLine()) {
+                count++;
+                long now = count / showStep;
+                if (now > to) {
+                    to = now;
+                    System.out.print(count + ",");
+                }
+                line = inputStream.nextLine();
+                SendMsg(line);
+                oneBatch++;
+                if (oneBatch >= batch) {
+                    if (sleep > 0) {
+                        TimeUnit.MILLISECONDS.sleep(sleep);
+                    }
+                    socket.sendUrgentData(0);
+                    oneBatch = 0;
+                }
+            }
+            inputStream.close();
+            System.out.println("file End.");
         } catch (FileNotFoundException e) {
             System.out.println("File " + fileName + " was no found");
             System.exit(0);
-        }
-        String line = null;
-        long count = 0;
-        long to = 0;
-        long oneBatch = 0;
-        while (inputStream.hasNextLine()) {
-            count++;
-            long now = count / showStep;
-            if (now > to) {
-                to = now;
-                System.out.print(count + ",");
-            }
-            line = inputStream.nextLine();
-            SendMsg(line);
-            oneBatch++;
-            if (oneBatch >= batch) {
-                if (sleep > 0) {
-                    TimeUnit.MILLISECONDS.sleep(sleep);
-                }
-                oneBatch = 0;
+        } finally {
+            if (inputStream != null) {
+                inputStream.close();
             }
         }
-        inputStream.close();
-        System.out.println("file End.");
     }
 }

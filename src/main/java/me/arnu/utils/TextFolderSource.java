@@ -21,11 +21,11 @@ public class TextFolderSource extends RichSourceFunction<String> {
     private volatile long batch;
     private volatile int showStep;
 
-    public TextFolderSource(String folderName, String sleep, String batch, String showStep) {
+    public TextFolderSource(String folderName, long sleep, long batch, int showStep) {
         this.folderName = folderName;
-        this.sleep = Long.parseLong(sleep);
-        this.batch = Long.parseLong(batch);
-        this.showStep = Integer.parseInt(showStep);
+        this.sleep = sleep;
+        this.batch = batch;
+        this.showStep = showStep;
     }
 
     @Override

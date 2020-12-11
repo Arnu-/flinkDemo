@@ -1,4 +1,4 @@
-package me.arnu.FlinkDemo;
+package me.arnu.Socket;
 
 import me.arnu.utils.ArnuSign;
 import org.slf4j.Logger;

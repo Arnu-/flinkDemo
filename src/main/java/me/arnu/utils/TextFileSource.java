@@ -15,11 +15,19 @@ public class TextFileSource extends RichSourceFunction<String> {
     private volatile long batch;
     private volatile int showStep;
 
-    public TextFileSource(String fileName, String sleep, String batch, String showStep) {
+    /**
+     * 读取文件并逐行发送给处理环境的源
+     *
+     * @param fileName 文件名
+     * @param sleep    一个批次的睡眠时间
+     * @param batch    一个批次的发送行数
+     * @param showStep 显示进度的步进
+     */
+    public TextFileSource(String fileName, long sleep, long batch, int showStep) {
         this.fileName = fileName;
-        this.sleep = Long.parseLong(sleep);
-        this.batch = Long.parseLong(batch);
-        this.showStep = Integer.parseInt(showStep);
+        this.sleep = sleep;
+        this.batch = batch;
+        this.showStep = showStep;
     }
 
     @Override
@@ -37,10 +45,12 @@ public class TextFileSource extends RichSourceFunction<String> {
         long oneBatch = 0;
         while (inputStream.hasNextLine()) {
             count++;
-            long now = count / showStep;
-            if (now > to) {
-                to = now;
-                System.out.print(count + ",");
+            if (showStep > 0) {
+                long now = count / showStep;
+                if (now > to) {
+                    to = now;
+                    System.out.print(count + ",");
+                }
             }
             line = inputStream.nextLine();
             ctx.collect(line);
@@ -52,14 +62,9 @@ public class TextFileSource extends RichSourceFunction<String> {
                 oneBatch = 0;
             }
         }
+        System.out.print(count);
         inputStream.close();
-        System.out.println("file End.");
-        for(int i = 0; i< 20; i++)
-        {
-            TimeUnit.MILLISECONDS.sleep(this.sleep);
-            ctx.collect("the end.");
-            System.out.println("the end.");
-        }
+        System.out.println("file length: " +count + ". file End.");
     }
 
     @Override

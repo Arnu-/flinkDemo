@@ -87,5 +87,11 @@
             <artifactId>log4j</artifactId>
             <version>${log4j.version}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.75</version>
+        </dependency>
     </dependencies>
 </project>
