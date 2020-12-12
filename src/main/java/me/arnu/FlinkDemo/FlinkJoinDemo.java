@@ -26,8 +26,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FlinkOperatorDemo2 {
-    private final static Logger logger = LoggerFactory.getLogger("FlinkOperatorDemo2");
+public class FlinkJoinDemo {
+    private final static Logger logger = LoggerFactory.getLogger("FlinkJoinDemo");
 
     public static void main(String[] args) throws Exception {
         ArnuSign.printSign();
