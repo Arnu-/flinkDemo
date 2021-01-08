@@ -1,6 +1,5 @@
 package me.arnu.FlinkDemo;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
@@ -10,7 +9,6 @@ import org.apache.flink.api.common.functions.FilterFunction;
 import org.apache.flink.api.common.functions.FlatMapFunction;
 import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.api.common.functions.ReduceFunction;
-import org.apache.flink.api.java.functions.KeySelector;
 import org.apache.flink.api.java.tuple.Tuple;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.streaming.api.datastream.KeyedStream;
@@ -48,8 +46,8 @@ public class FlinkOperatorDemo {
             }
         }).name("将输入字符串变成json对象");
 
-
-        KeyedStream<Tuple2<String, Integer>, Tuple> keyedStream = jsonStream.flatMap(new FlatMapFunction<JSONObject, Tuple2<String, Integer>>() {
+        KeyedStream<Tuple2<String, Integer>, Tuple> keyedStream =
+                jsonStream.flatMap(new FlatMapFunction<JSONObject, Tuple2<String, Integer>>() {
             @Override
             public void flatMap(JSONObject jsonObject, Collector<Tuple2<String, Integer>> collector) throws Exception {
                 if (jsonObject == null) {
@@ -64,7 +62,11 @@ public class FlinkOperatorDemo {
                             for (Object v : ZT_leaf_video) {
                                 JSONObject video = (JSONObject) v;
                                 String ctype = video.getString("ctype");
-                                collector.collect(Tuple2.of(ctype, 1));
+                                if(ctype == null){
+                                    logger.warn("有空类型数据：" + video.toJSONString());
+                                }else {
+                                    collector.collect(Tuple2.of(ctype, 1));
+                                }
                             }
                         }
                     }
@@ -88,6 +90,7 @@ public class FlinkOperatorDemo {
                 return Tuple2.of(t1.f0, t1.f1 + stringIntegerTuple2.f1);
             }
         }).name("分组后数据进行归并操作")
+
                 .keyBy(0)
                 .timeWindow(Time.seconds(5))
                 .maxBy(1)

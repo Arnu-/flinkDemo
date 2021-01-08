@@ -24,8 +24,8 @@ public class SimpleSocketServer {
         showStep = 5;
         batch = 1;
         sleep = 100;
-//        fileName = "D:\\code\\1\\flinksql\\src\\main\\resources\\flink.txt";
-        fileName = "D:\\tmp\\20201211\\jdxm_cctv5.20201211.log";
+        fileName = "D:\\code\\1\\flinksql\\src\\main\\resources\\flink.txt";
+//        fileName = "D:\\tmp\\20201211\\jdxm_cctv5.20201211.log";
         port = 50190;
         ServerSocket serverSocket = new ServerSocket(port);
         System.out.println(ArnuSign.GetArnuSign() +
@@ -37,16 +37,16 @@ public class SimpleSocketServer {
                     logger.info("有请求接入，" + socket.getRemoteSocketAddress());
                     init(socket);
 
-//                    sendFile(socket);
-//                    System.in.read();
+                    sendFile(socket);
+                    System.in.read();
 
-                    Scanner scanner = new Scanner(System.in);
-                    while (true) {
-                        String msg = scanner.nextLine();
-                        SendMsg(msg);
-                        socket.sendUrgentData(0);
-                        Thread.sleep(300);
-                    }
+//                    Scanner scanner = new Scanner(System.in);
+//                    while (true) {
+//                        String msg = scanner.nextLine();
+//                        SendMsg(msg);
+////                        socket.sendUrgentData(0);
+//                        Thread.sleep(300);
+//                    }
 
 
 //                    InputStream inputStream = socket.getInputStream();
@@ -109,7 +109,7 @@ public class SimpleSocketServer {
                     if (sleep > 0) {
                         TimeUnit.MILLISECONDS.sleep(sleep);
                     }
-                    socket.sendUrgentData(0);
+//                    socket.sendUrgentData(0);
                     oneBatch = 0;
                 }
             }

@@ -15,7 +15,7 @@ public class FlinkSqlDemo {
         BatchTableEnvironment tableEnv = BatchTableEnvironment.getTableEnvironment(env);
 
         //2\. 读取score.csv
-        DataSet<String> input = env.readTextFile("score.csv");
+        DataSet<String> input = env.readTextFile("D:\\code\\1\\flinksql\\src\\main\\resources\\score.csv");
         input.print();
 
         DataSet<PlayerData> topInput = input.map(new MapFunction<String, PlayerData>() {
