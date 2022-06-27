@@ -23,7 +23,7 @@ public class SimpleSocketServer {
     public static void main(String[] args) throws IOException {
         showStep = 5;
         batch = 1;
-        sleep = 100;
+        sleep = 1000;
         fileName = "D:\\code\\1\\flinksql\\src\\main\\resources\\flink.txt";
 //        fileName = "D:\\tmp\\20201211\\jdxm_cctv5.20201211.log";
         port = 50190;
